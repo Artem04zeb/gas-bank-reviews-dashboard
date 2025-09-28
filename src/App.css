@@ -32,16 +32,15 @@ body {
 }
 
 .sidebar__header {
-  padding: 0 24px 32px 24px;
+  padding: 0 24px 24px 24px;
   border-bottom: 1px solid #e9ecef;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .sidebar__title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 300;
   color: #212529;
-  letter-spacing: -0.01em;
 }
 
 .sidebar__menu {
@@ -121,15 +120,12 @@ body {
   min-height: 100vh;
 }
 
-.main__header {
-  margin-bottom: 32px;
-}
-
 .main__title {
   font-size: 28px;
-  font-weight: 700;
-  color: #212529;
+  font-weight: 400;
+  color: #292929;
   letter-spacing: -0.02em;
+  margin-bottom: 12px;
 }
 
 /* Дашборд */
@@ -137,7 +133,7 @@ body {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 24px;
-  max-width: 1200px;
+  /* max-width: 1200px; */
 }
 
 /* Карточки */
@@ -160,13 +156,13 @@ body {
 }
 
 .card__header {
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .card__title {
   font-size: 18px;
-  font-weight: 600;
-  color: #212529;
+  font-weight: 500;
+  color: #292929;
   letter-spacing: -0.01em;
 }
 
@@ -194,10 +190,13 @@ body {
 
 .filter-radio__label {
   font-size: 14px;
-  color: #495057;
-  font-weight: 500;
+  color: #747474;
+  font-weight: 400;
   cursor: pointer;
   user-select: none;
+  padding: 7px 15px;
+  border-radius: 8px;
+  border: 2px solid #E2E2E2;
 }
 
 /* Контейнер графика */
@@ -330,16 +329,11 @@ body {
 .pie-chart {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 300px;
-}
-
-.pie-chart__container {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  width: 100%;
+  gap: 24px;
 }
 
 .pie-chart__chart {
@@ -351,29 +345,23 @@ body {
   flex-shrink: 0;
 }
 
-.pie-chart__placeholder {
-  width: 180px;
-  height: 180px;
-  background-color: #e9ecef;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #dee2e6;
-}
-
 .pie-chart__legend {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  max-width: 400px;
 }
 
 .pie-chart__legend-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 8px 0;
+  gap: 8px;
+  padding: 6px 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  min-width: fit-content;
 }
 
 .pie-chart__legend-dot {
@@ -469,9 +457,14 @@ body {
     height: 150px;
   }
   
-  .pie-chart__placeholder {
-    width: 130px;
-    height: 130px;
+  .pie-chart__legend {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .pie-chart__legend-item {
+    padding: 4px 8px;
+    min-width: auto;
   }
 }
 

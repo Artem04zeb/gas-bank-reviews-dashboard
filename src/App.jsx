@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 
 function App() {
   const [activeMenuItem, setActiveMenuItem] = useState('Главная')
@@ -44,8 +45,6 @@ function App() {
   // Округляем максимальное значение для красивой шкалы
   const roundedMax = Math.ceil(currentMaxValue / 100) * 100
   const chartHeight = 180 // Высота области графика в SVG
-  const svgHeight = 200 // Общая высота SVG
-  const bottomMargin = svgHeight - chartHeight // Отступ снизу для оси X
 
   // Mock данные для тематики - распределение отзывов по категориям
   const topicsData = [
@@ -122,114 +121,49 @@ function App() {
             </div>
 
             <div className="chart-container">
-                <div className="line-chart">
-                  <div className="line-chart__y-axis">
-                    <span>{roundedMax}</span>
-                    <span>{Math.round(roundedMax * 0.75)}</span>
-                    <span>{Math.round(roundedMax * 0.5)}</span>
-                    <span>{Math.round(roundedMax * 0.25)}</span>
-                    <span>0</span>
-                  </div>
-                
-                <div className="line-chart__content">
-                  <svg className="line-chart__svg" viewBox="0 0 800 200">
-                    {/* Сетка */}
-                    <defs>
-                      <pattern id="grid" width="60" height="45" patternUnits="userSpaceOnUse">
-                        <path d="M 60 0 L 0 0 0 45" fill="none" stroke="#e0e0e0" strokeWidth="1"/>
-                      </pattern>
-                    </defs>
-                    <rect x="30" y="20" width="750" height="180" fill="url(#grid)" />
-                    
-                    {/* Вертикальные линии от точек к оси X */}
-                    {getCurrentData().map((item, index) => (
-                      <line
-                        key={`vline-${index}`}
-                        x1={(index * 60) + 30}
-                        y1={bottomMargin + (1 - item.value / roundedMax) * chartHeight}
-                        x2={(index * 60) + 30}
-                        y2={svgHeight}
-                        stroke="#2b61ec"
-                        strokeWidth="1"
-                        strokeOpacity="0.3"
-                        strokeDasharray="2,2"
-                      />
-                    ))}
-                    
-                    {/* Горизонтальные линии от точек к оси Y */}
-                    {getCurrentData().map((item, index) => (
-                      <line
-                        key={`hline-${index}`}
-                        x1={30}
-                        y1={bottomMargin + (1 - item.value / roundedMax) * chartHeight}
-                        x2={(index * 60) + 30}
-                        y2={bottomMargin + (1 - item.value / roundedMax) * chartHeight}
-                        stroke="#2b61ec"
-                        strokeWidth="1"
-                        strokeOpacity="0.2"
-                        strokeDasharray="1,3"
-                      />
-                    ))}
-                    
-                    <polyline
-                      className="line-chart__line"
-                      points={getCurrentData().map((item, index) => 
-                        `${(index * 60) + 30},${bottomMargin + (1 - item.value / roundedMax) * chartHeight}`
-                      ).join(' ')}
-                      fill="none"
-                      stroke="#2b61ec"
-                      strokeWidth="3"
-                    />
-                    {getCurrentData().map((item, index) => (
-                      <circle
-                        key={index}
-                        className="line-chart__point"
-                        cx={(index * 60) + 30}
-                        cy={bottomMargin + (1 - item.value / roundedMax) * chartHeight}
-                        r="4"
-                        fill="#2b61ec"
-                      />
-                    ))}
-                    {/* Подсветка пикового месяца */}
-                    {(() => {
-                      const peakData = getCurrentData().reduce((max, item, index) => 
-                        item.value > max.value ? { ...item, index } : max, 
-                        getCurrentData()[0]
-                      )
-                      return (
-                        <circle
-                          className="line-chart__highlight"
-                          cx={(peakData.index * 60) + 30}
-                          cy={bottomMargin + (1 - peakData.value / roundedMax) * chartHeight}
-                          r="6"
-                          fill="#2b61ec"
-                        />
-                      )
-                    })()}
-                  </svg>
-                  
-                  <div className="line-chart__tooltip">
-                    <div className="tooltip">
-                      <div className="tooltip__title">Пик</div>
-                      <div className="tooltip__value">
-                        {(() => {
-                          const peakData = getCurrentData().reduce((max, item) => 
-                            item.value > max.value ? item : max, 
-                            getCurrentData()[0]
-                          )
-                          return `${peakData.value} ${selectedFilter === 'total' ? 'отзывов' : 'обработано'}`
-                        })()}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="line-chart__x-axis">
-                  {reviewsData.map((item, index) => (
-                    <span key={index} className="line-chart__x-label">{item.month}</span>
-                  ))}
-                </div>
-              </div>
+              <ResponsiveContainer width="100%" height={350}>
+                <LineChart
+                  data={getCurrentData()}
+                  margin={{
+                    top: 20,
+                    right: 30,
+                    left: 20,
+                    bottom: 20,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                  <XAxis 
+                    dataKey="month" 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 12, fill: '#6c757d' }}
+                  />
+                  <YAxis 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 12, fill: '#6c757d' }}
+                    domain={[0, roundedMax]}
+                  />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: '#ffffff',
+                      border: '1px solid #e9ecef',
+                      borderRadius: '12px',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+                    }}
+                    labelStyle={{ color: '#6c757d', fontSize: '12px' }}
+                    formatter={(value) => [`${value} ${selectedFilter === 'total' ? 'отзывов' : 'обработано'}`, 'Количество']}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="value" 
+                    stroke="#2b61ec" 
+                    strokeWidth={3}
+                    dot={{ fill: '#2b61ec', strokeWidth: 2, r: 4 }}
+                    activeDot={{ r: 6, stroke: '#2b61ec', strokeWidth: 2 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </div>
 
@@ -240,74 +174,47 @@ function App() {
             </div>
             
                 <div className="pie-chart">
-                  <div className="pie-chart__container">
-                    <div className="pie-chart__chart">
-                      <svg width="180" height="180" viewBox="0 0 180 180">
-                        <circle
-                          cx="90"
-                          cy="90"
-                          r="80"
-                          fill="none"
-                          stroke="#e0e0e0"
-                          strokeWidth="20"
-                        />
-                        {(() => {
-                          let currentAngle = 0
-                          const total = topicsData.reduce((sum, topic) => sum + topic.value, 0)
-                          
-                          return topicsData.map((topic, index) => {
-                            const percentage = topic.value / total
-                            const angle = percentage * 360
-                            const startAngle = currentAngle
-                            const endAngle = currentAngle + angle
-                            
-                            const startAngleRad = (startAngle - 90) * Math.PI / 180
-                            const endAngleRad = (endAngle - 90) * Math.PI / 180
-                            
-                            const x1 = 90 + 80 * Math.cos(startAngleRad)
-                            const y1 = 90 + 80 * Math.sin(startAngleRad)
-                            const x2 = 90 + 80 * Math.cos(endAngleRad)
-                            const y2 = 90 + 80 * Math.sin(endAngleRad)
-                            
-                            const largeArcFlag = angle > 180 ? 1 : 0
-                            
-                            const pathData = [
-                              `M 90 90`,
-                              `L ${x1} ${y1}`,
-                              `A 80 80 0 ${largeArcFlag} 1 ${x2} ${y2}`,
-                              `Z`
-                            ].join(' ')
-                            
-                            currentAngle += angle
-                            
-                            return (
-                              <path
-                                key={index}
-                                d={pathData}
-                                fill={topic.color}
-                                stroke="white"
-                                strokeWidth="2"
-                              />
-                            )
-                          })
-                        })()}
-                      </svg>
-                    </div>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <PieChart>
+                      <Pie
+                        data={topicsData}
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                        stroke="#fff"
+                        strokeWidth={2}
+                      >
+                        {topicsData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip 
+                        formatter={(value, name, props) => [`${value}%`, props.payload.label]}
+                        contentStyle={{
+                          backgroundColor: '#ffffff',
+                          border: '1px solid #e9ecef',
+                          borderRadius: '8px',
+                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+                        }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
 
-                    <div className="pie-chart__legend">
-                      {topicsData.map((topic, index) => (
-                        <div key={index} className="pie-chart__legend-item">
-                          <div
-                            className="pie-chart__legend-dot"
-                            style={{ backgroundColor: topic.color }}
-                          ></div>
-                          <div className="pie-chart__legend-text">
-                            <span className="pie-chart__legend-label">{topic.label}</span>
-                            <span className="pie-chart__legend-value">{topic.value}%</span>
-                          </div>
+                  <div className="pie-chart__legend">
+                    {topicsData.map((topic, index) => (
+                      <div key={index} className="pie-chart__legend-item">
+                        <div
+                          className="pie-chart__legend-dot"
+                          style={{ backgroundColor: topic.color }}
+                        ></div>
+                        <div className="pie-chart__legend-text">
+                          <span className="pie-chart__legend-label">{topic.label}</span>
+                          <span className="pie-chart__legend-value">{topic.value}%</span>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
           </div>
