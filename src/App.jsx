@@ -40,6 +40,10 @@ function App() {
   // Найти максимальное значение для масштабирования графика
   const maxValue = Math.max(...reviewsData.map(item => item.total))
   const currentMaxValue = Math.max(...getCurrentData().map(item => item.value))
+  
+  // Округляем максимальное значение для красивой шкалы
+  const roundedMax = Math.ceil(currentMaxValue / 100) * 100
+  const chartHeight = 180 // Высота области графика в SVG
 
   // Mock данные для тематики - распределение отзывов по категориям
   const topicsData = [
@@ -118,19 +122,27 @@ function App() {
             <div className="chart-container">
                 <div className="line-chart">
                   <div className="line-chart__y-axis">
-                    <span>{Math.ceil(currentMaxValue / 100) * 100}</span>
-                    <span>{Math.ceil(currentMaxValue / 100) * 75}</span>
-                    <span>{Math.ceil(currentMaxValue / 100) * 50}</span>
-                    <span>{Math.ceil(currentMaxValue / 100) * 25}</span>
+                    <span>{roundedMax}</span>
+                    <span>{Math.round(roundedMax * 0.75)}</span>
+                    <span>{Math.round(roundedMax * 0.5)}</span>
+                    <span>{Math.round(roundedMax * 0.25)}</span>
                     <span>0</span>
                   </div>
                 
                 <div className="line-chart__content">
                   <svg className="line-chart__svg" viewBox="0 0 800 200">
+                    {/* Сетка */}
+                    <defs>
+                      <pattern id="grid" width="60" height="45" patternUnits="userSpaceOnUse">
+                        <path d="M 60 0 L 0 0 0 45" fill="none" stroke="#e0e0e0" strokeWidth="1"/>
+                      </pattern>
+                    </defs>
+                    <rect width="800" height="180" fill="url(#grid)" />
+                    
                     <polyline
                       className="line-chart__line"
                       points={getCurrentData().map((item, index) => 
-                        `${(index * 60) + 30},${200 - (item.value / currentMaxValue * 180)}`
+                        `${(index * 60) + 30},${200 - (item.value / roundedMax * chartHeight)}`
                       ).join(' ')}
                       fill="none"
                       stroke="#2b61ec"
@@ -141,7 +153,7 @@ function App() {
                         key={index}
                         className="line-chart__point"
                         cx={(index * 60) + 30}
-                        cy={200 - (item.value / currentMaxValue * 180)}
+                        cy={200 - (item.value / roundedMax * chartHeight)}
                         r="4"
                         fill="#2b61ec"
                       />
@@ -156,7 +168,7 @@ function App() {
                         <circle
                           className="line-chart__highlight"
                           cx={(peakData.index * 60) + 30}
-                          cy={200 - (peakData.value / currentMaxValue * 180)}
+                          cy={200 - (peakData.value / roundedMax * chartHeight)}
                           r="6"
                           fill="#2b61ec"
                         />
