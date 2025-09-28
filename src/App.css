@@ -442,7 +442,6 @@ body {
 /* Выбор временного ди0апазона */
 .time-range-selector {
   margin-bottom: 32px;
-  /* padding: 0 32px; */
 }
 
 .time-range-selector__container {
@@ -621,17 +620,31 @@ body {
 /* Стили для страницы тестирования */
 .testing-panel {
   margin-bottom: 20px;
-  padding: 0 32px;
+  /* padding: 0 32px; */
 }
 
 .testing-panel__container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
+  min-height: 200px;
 }
 
-/* Секция загрузки файла */
+/* Секции панели тестирования */
+.file-upload-section,
+.metrics-section,
+.download-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 .file-upload-section__title,
 .metrics-section__title,
 .download-section__title {
@@ -639,10 +652,22 @@ body {
   font-weight: 600;
   color: #292929;
   margin-bottom: 10px;
+  flex-shrink: 0;
 }
 
 .file-upload {
   position: relative;
+  flex-grow: 1;
+  display: flex;
+}
+
+.metrics-grid {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-content: stretch;
+  grid-template-rows: 1fr 1fr;
 }
 
 .file-upload__input {
@@ -669,8 +694,8 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
-  min-height: 80px;
   justify-content: center;
+  flex-grow: 1;
 }
 
 .file-upload__label:hover {
@@ -688,12 +713,7 @@ body {
   font-weight: 500;
 }
 
-/* Секция метрик */
-.metrics-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
+/* Секция метрик - стили уже определены выше */
 
 .metric-card {
   padding: 14px;
@@ -702,6 +722,11 @@ body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   text-align: center;
   border: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .metric-card__label {
@@ -721,6 +746,10 @@ body {
 }
 
 /* Секция скачивания */
+.download-section {
+  justify-content: space-between;
+}
+
 .download-button {
   display: flex;
   align-items: center;
@@ -736,7 +765,8 @@ body {
   transition: all 0.3s ease;
   width: 100%;
   justify-content: center;
-  min-height: 40px;
+  flex-grow: 1;
+  margin-top: auto;
 }
 
 .download-button:hover:not(:disabled) {
@@ -974,6 +1004,13 @@ body {
   .testing-panel__container {
     grid-template-columns: 1fr;
     gap: 16px;
+    min-height: auto;
+  }
+  
+  .file-upload-section,
+  .metrics-section,
+  .download-section {
+    padding: 16px;
   }
   
   .metrics-grid {
