@@ -5,7 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 function App() {
   const [activeMenuItem, setActiveMenuItem] = useState('Главная')
   const [selectedFilter, setSelectedFilter] = useState('total')
-  const [selectedClass, setSelectedClass] = useState('Обслуживание')
+  const [selectedClass, setSelectedClass] = useState('Все')
 
   const menuItems = [
     'Главная',
@@ -58,6 +58,7 @@ function App() {
 
   // Данные для карточек классов на странице кластеризации
   const classCards = [
+    { id: 'Все', label: 'Все', color: '#2b61ec' },
     { id: 'Обслуживание', label: 'Обслуживание', color: '#FF6B35' },
     { id: 'Кредитные карты', label: 'Кредитные карты', color: '#06D6A0' },
     { id: 'Вклады', label: 'Вклады', color: '#118AB2' },
@@ -232,10 +233,11 @@ function App() {
             <div
               key={classCard.id}
               className={`class-card ${selectedClass === classCard.id ? 'class-card--active' : ''}`}
+              data-class={classCard.id}
               onClick={() => setSelectedClass(classCard.id)}
               style={{
-                borderColor: selectedClass === classCard.id ? classCard.color : 'transparent',
-                backgroundColor: selectedClass === classCard.id ? `${classCard.color}10` : '#ffffff'
+                borderColor: selectedClass === classCard.id ? classCard.color : (classCard.id === 'Все' ? '#c5d9f1' : 'transparent'),
+                backgroundColor: selectedClass === classCard.id ? `${classCard.color}10` : (classCard.id === 'Все' ? 'linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%)' : '#ffffff')
               }}
             >
               <div 
@@ -253,7 +255,11 @@ function App() {
         {/* Карточка статистики по отзывам */}
         <div className="card card--large">
           <div className="card__header">
-            <h3 className="card__title">Статистика по количеству отзывов - {selectedClass}</h3>
+            <h3 className="card__title">
+              {selectedClass === 'Все' 
+                ? 'Статистика по количеству отзывов - Общая статистика' 
+                : `Статистика по количеству отзывов - ${selectedClass}`}
+            </h3>
           </div>
           
           <div className="card__filters">
@@ -330,7 +336,11 @@ function App() {
         {/* Карточка статистики по тематике */}
         <div className="card card--small">
           <div className="card__header">
-            <h3 className="card__title">Кластеры для категории: {selectedClass}</h3>
+            <h3 className="card__title">
+              {selectedClass === 'Все' 
+                ? 'Статистика по тематике - Общая статистика' 
+                : `Кластеры для категории: ${selectedClass}`}
+            </h3>
           </div>
           
           <div className="pie-chart">

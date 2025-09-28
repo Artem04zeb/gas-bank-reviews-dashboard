@@ -425,6 +425,21 @@ body {
   color: #495057;
 }
 
+/* Специальные стили для карточки "Все" */
+.class-card[data-class="Все"] {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+  border-color: #2b61ec;
+}
+
+.class-card[data-class="Все"] .class-card__label {
+  font-weight: 600;
+  color: #2b61ec;
+}
+
+.class-card[data-class="Все"]:not(.class-card--active) {
+  border-color: #c5d9f1;
+}
+
 .pie-chart__legend {
   display: flex;
   flex-direction: row;
