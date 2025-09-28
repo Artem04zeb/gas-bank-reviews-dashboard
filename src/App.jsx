@@ -139,6 +139,36 @@ function App() {
                     </defs>
                     <rect width="800" height="180" fill="url(#grid)" />
                     
+                    {/* Вертикальные линии от точек к оси X */}
+                    {getCurrentData().map((item, index) => (
+                      <line
+                        key={`vline-${index}`}
+                        x1={(index * 60) + 30}
+                        y1={200 - (item.value / roundedMax * chartHeight)}
+                        x2={(index * 60) + 30}
+                        y2={200}
+                        stroke="#2b61ec"
+                        strokeWidth="1"
+                        strokeOpacity="0.3"
+                        strokeDasharray="2,2"
+                      />
+                    ))}
+                    
+                    {/* Горизонтальные линии от точек к оси Y */}
+                    {getCurrentData().map((item, index) => (
+                      <line
+                        key={`hline-${index}`}
+                        x1={30}
+                        y1={200 - (item.value / roundedMax * chartHeight)}
+                        x2={(index * 60) + 30}
+                        y2={200 - (item.value / roundedMax * chartHeight)}
+                        stroke="#2b61ec"
+                        strokeWidth="1"
+                        strokeOpacity="0.2"
+                        strokeDasharray="1,3"
+                      />
+                    ))}
+                    
                     <polyline
                       className="line-chart__line"
                       points={getCurrentData().map((item, index) => 
