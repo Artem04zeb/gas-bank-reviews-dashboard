@@ -44,6 +44,8 @@ function App() {
   // Округляем максимальное значение для красивой шкалы
   const roundedMax = Math.ceil(currentMaxValue / 100) * 100
   const chartHeight = 180 // Высота области графика в SVG
+  const svgHeight = 200 // Общая высота SVG
+  const bottomMargin = svgHeight - chartHeight // Отступ снизу для оси X
 
   // Mock данные для тематики - распределение отзывов по категориям
   const topicsData = [
@@ -137,16 +139,16 @@ function App() {
                         <path d="M 60 0 L 0 0 0 45" fill="none" stroke="#e0e0e0" strokeWidth="1"/>
                       </pattern>
                     </defs>
-                    <rect width="800" height="180" fill="url(#grid)" />
+                    <rect x="30" y="20" width="750" height="180" fill="url(#grid)" />
                     
                     {/* Вертикальные линии от точек к оси X */}
                     {getCurrentData().map((item, index) => (
                       <line
                         key={`vline-${index}`}
                         x1={(index * 60) + 30}
-                        y1={200 - (item.value / roundedMax * chartHeight)}
+                        y1={bottomMargin + (1 - item.value / roundedMax) * chartHeight}
                         x2={(index * 60) + 30}
-                        y2={200}
+                        y2={svgHeight}
                         stroke="#2b61ec"
                         strokeWidth="1"
                         strokeOpacity="0.3"
@@ -159,9 +161,9 @@ function App() {
                       <line
                         key={`hline-${index}`}
                         x1={30}
-                        y1={200 - (item.value / roundedMax * chartHeight)}
+                        y1={bottomMargin + (1 - item.value / roundedMax) * chartHeight}
                         x2={(index * 60) + 30}
-                        y2={200 - (item.value / roundedMax * chartHeight)}
+                        y2={bottomMargin + (1 - item.value / roundedMax) * chartHeight}
                         stroke="#2b61ec"
                         strokeWidth="1"
                         strokeOpacity="0.2"
@@ -172,7 +174,7 @@ function App() {
                     <polyline
                       className="line-chart__line"
                       points={getCurrentData().map((item, index) => 
-                        `${(index * 60) + 30},${200 - (item.value / roundedMax * chartHeight)}`
+                        `${(index * 60) + 30},${bottomMargin + (1 - item.value / roundedMax) * chartHeight}`
                       ).join(' ')}
                       fill="none"
                       stroke="#2b61ec"
@@ -183,7 +185,7 @@ function App() {
                         key={index}
                         className="line-chart__point"
                         cx={(index * 60) + 30}
-                        cy={200 - (item.value / roundedMax * chartHeight)}
+                        cy={bottomMargin + (1 - item.value / roundedMax) * chartHeight}
                         r="4"
                         fill="#2b61ec"
                       />
@@ -198,7 +200,7 @@ function App() {
                         <circle
                           className="line-chart__highlight"
                           cx={(peakData.index * 60) + 30}
-                          cy={200 - (peakData.value / roundedMax * chartHeight)}
+                          cy={bottomMargin + (1 - peakData.value / roundedMax) * chartHeight}
                           r="6"
                           fill="#2b61ec"
                         />
