@@ -6,6 +6,7 @@ function App() {
   const [activeMenuItem, setActiveMenuItem] = useState('Главная')
   const [selectedFilter, setSelectedFilter] = useState('total')
   const [selectedClass, setSelectedClass] = useState('Все')
+  const [selectedTimeRange, setSelectedTimeRange] = useState('last-3-months')
 
   const menuItems = [
     'Главная',
@@ -66,6 +67,15 @@ function App() {
     { id: 'Мобильное приложение', label: 'Мобильное приложение', color: '#FFD23F' },
     { id: 'Мобильное приложение2', label: 'Мобильное приложение', color: '#9B59B6' },
     { id: 'Мобильное приложение3', label: 'Мобильное приложение', color: '#E67E22' }
+  ]
+
+  // Данные для выбора временного диапазона
+  const timeRangeOptions = [
+    { id: 'last-month', label: 'Последний месяц' },
+    { id: 'last-3-months', label: 'Последние 3 месяца' },
+    { id: 'last-6-months', label: 'Последние 6 месяцев' },
+    { id: 'last-year', label: 'Последний год' },
+    { id: 'all-time', label: 'Всё время' }
   ]
 
   // Функция для рендера содержимого дашборда
@@ -247,6 +257,29 @@ function App() {
               <span className="class-card__label">{classCard.label}</span>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Выбор временного диапазона */}
+      <div className="time-range-selector">
+        <div className="time-range-selector__container">
+          <div className="time-range-selector__label">
+            <span>Временной диапазон:</span>
+          </div>
+          <div className="time-range-selector__options">
+            {timeRangeOptions.map((option) => (
+              <label key={option.id} className="time-range-option">
+                <input
+                  type="radio"
+                  name="time-range"
+                  value={option.id}
+                  checked={selectedTimeRange === option.id}
+                  onChange={(e) => setSelectedTimeRange(e.target.value)}
+                />
+                <span className="time-range-option__label">{option.label}</span>
+              </label>
+            ))}
+          </div>
         </div>
       </div>
 

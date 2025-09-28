@@ -170,7 +170,6 @@ body {
 .card__filters {
   display: flex;
   gap: 32px;
-  margin-bottom: 32px;
 }
 
 .filter-radio {
@@ -189,7 +188,7 @@ body {
 }
 
 .filter-radio__label {
-  font-size: 14px;
+  font-size: 12px;
   color: #747474;
   font-weight: 400;
   cursor: pointer;
@@ -361,8 +360,7 @@ body {
 
 /* Карточки классов на странице кластеризации */
 .class-cards {
-  margin-bottom: 32px;
-  padding: 0 24px;
+  margin-bottom: 8px;
 }
 
 .class-cards__container {
@@ -372,6 +370,7 @@ body {
   padding: 8px 0;
   scrollbar-width: thin;
   scrollbar-color: #e0e0e0 transparent;
+  flex-wrap: wrap;
 }
 
 .class-cards__container::-webkit-scrollbar {
@@ -391,7 +390,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 20px;
+  padding: 8px 12px;
   border: 2px solid transparent;
   border-radius: 12px;
   background-color: #ffffff;
@@ -420,7 +419,7 @@ body {
 }
 
 .class-card__label {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: #495057;
 }
@@ -438,6 +437,64 @@ body {
 
 .class-card[data-class="Все"]:not(.class-card--active) {
   border-color: #c5d9f1;
+}
+
+/* Выбор временного диапазона */
+.time-range-selector {
+  margin-bottom: 32px;
+  padding: 0 32px;
+}
+
+.time-range-selector__container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.time-range-selector__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  white-space: nowrap;
+}
+
+.time-range-selector__options {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.time-range-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-range-option:hover {
+  opacity: 0.8;
+}
+
+.time-range-option input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2b61ec;
+  cursor: pointer;
+}
+
+.time-range-option__label {
+  font-size: 13px;
+  color: #6c757d;
+  font-weight: 400;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.time-range-option input[type="radio"]:checked + .time-range-option__label {
+  color: #2b61ec;
+  font-weight: 500;
 }
 
 .pie-chart__legend {
@@ -561,7 +618,6 @@ body {
   
   .class-cards {
     padding: 0 16px;
-    margin-bottom: 24px;
   }
   
   .class-cards__container {
@@ -574,6 +630,25 @@ body {
   }
   
   .class-card__label {
+    font-size: 12px;
+  }
+  
+  .time-range-selector {
+    padding: 0 16px;
+    margin-bottom: 24px;
+  }
+  
+  .time-range-selector__container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .time-range-selector__options {
+    gap: 16px;
+  }
+  
+  .time-range-option__label {
     font-size: 12px;
   }
 }
