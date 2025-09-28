@@ -696,14 +696,14 @@ function App() {
           </div>
 
           <div className="chart-container">
-            <ResponsiveContainer width="100%" height={350}>
+            <ResponsiveContainer width="100%" height={280}>
               <LineChart
                 data={getCurrentData()}
                 margin={{
-                  top: 20,
-                  right: 30,
-                  left: 20,
-                  bottom: 20,
+                  top: 15,
+                  right: 20,
+                  left: 15,
+                  bottom: 15,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -753,14 +753,14 @@ function App() {
           </div>
           
           <div className="pie-chart">
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie
                   data={topicsData}
                   cx="50%"
                   cy="50%"
                   innerRadius={0}
-                  outerRadius={80}
+                  outerRadius={65}
                   fill="#8884d8"
                   dataKey="value"
                   stroke="#fff"

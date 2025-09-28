@@ -439,10 +439,10 @@ body {
   border-color: #c5d9f1;
 }
 
-/* Выбор временного диапазона */
+/* Выбор временного ди0апазона */
 .time-range-selector {
   margin-bottom: 32px;
-  padding: 0 32px;
+  /* padding: 0 32px; */
 }
 
 .time-range-selector__container {
@@ -620,14 +620,14 @@ body {
 
 /* Стили для страницы тестирования */
 .testing-panel {
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   padding: 0 32px;
 }
 
 .testing-panel__container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  gap: 32px;
+  gap: 20px;
   align-items: start;
 }
 
@@ -635,10 +635,10 @@ body {
 .file-upload-section__title,
 .metrics-section__title,
 .download-section__title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #292929;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .file-upload {
@@ -661,15 +661,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 24px;
+  gap: 8px;
+  padding: 16px;
   border: 2px dashed #ced4da;
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: #f8f9fa;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
-  min-height: 120px;
+  min-height: 80px;
   justify-content: center;
 }
 
@@ -679,11 +679,11 @@ body {
 }
 
 .file-upload__icon {
-  font-size: 32px;
+  font-size: 24px;
 }
 
 .file-upload__text {
-  font-size: 14px;
+  font-size: 13px;
   color: #495057;
   font-weight: 500;
 }
@@ -692,29 +692,29 @@ body {
 .metrics-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 12px;
 }
 
 .metric-card {
-  padding: 20px;
+  padding: 14px;
   background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
   border: 1px solid #e9ecef;
 }
 
 .metric-card__label {
-  font-size: 12px;
+  font-size: 11px;
   color: #6c757d;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .metric-card__value {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #2b61ec;
   line-height: 1;
@@ -724,19 +724,19 @@ body {
 .download-button {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 24px;
+  gap: 8px;
+  padding: 12px 16px;
   background-color: #2b61ec;
   color: #ffffff;
   border: none;
-  border-radius: 12px;
-  font-size: 14px;
+  border-radius: 8px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
   justify-content: center;
-  min-height: 56px;
+  min-height: 44px;
 }
 
 .download-button:hover:not(:disabled) {
@@ -968,30 +968,43 @@ body {
   
   .testing-panel {
     padding: 0 16px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
   
   .testing-panel__container {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 16px;
   }
   
   .metrics-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
   
   .metric-card {
-    padding: 16px;
+    padding: 12px;
   }
   
   .metric-card__value {
-    font-size: 20px;
+    font-size: 18px;
   }
   
   .download-button {
-    padding: 12px 16px;
-    min-height: 48px;
+    padding: 10px 12px;
+    min-height: 40px;
+  }
+  
+  .file-upload__label {
+    min-height: 60px;
+    padding: 12px;
+  }
+  
+  .file-upload__icon {
+    font-size: 20px;
+  }
+  
+  .file-upload__text {
+    font-size: 12px;
   }
 }
 
