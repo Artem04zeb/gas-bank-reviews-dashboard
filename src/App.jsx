@@ -180,14 +180,25 @@ function App() {
                         data={topicsData}
                         cx="50%"
                         cy="50%"
+                        innerRadius={0}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
                         stroke="#fff"
                         strokeWidth={2}
+                        paddingAngle={2}
+                        animationBegin={0}
+                        animationDuration={300}
                       >
                         {topicsData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
+                          <Cell 
+                            key={`cell-${index}`} 
+                            fill={entry.color}
+                            style={{
+                              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
+                              transition: 'all 0.3s ease'
+                            }}
+                          />
                         ))}
                       </Pie>
                       <Tooltip 

@@ -345,12 +345,24 @@ body {
   flex-shrink: 0;
 }
 
+/* Hover эффект для сегментов pie chart */
+.recharts-pie-sector:hover {
+  transform: scale(1.05);
+  transform-origin: center;
+  filter: brightness(1.1) drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.recharts-pie-sector {
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
 .pie-chart__legend {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
   max-width: 400px;
 }
 
@@ -359,14 +371,13 @@ body {
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  background-color: #f8f9fa;
   border-radius: 8px;
   min-width: fit-content;
 }
 
 .pie-chart__legend-dot {
-  width: 14px;
-  height: 14px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -374,21 +385,21 @@ body {
 
 .pie-chart__legend-text {
   display: flex;
-  flex-direction: column;
   gap: 2px;
 }
 
 .pie-chart__legend-label {
-  font-size: 14px;
+  font-size: 10px;
   color: #495057;
   font-weight: 500;
   line-height: 1.4;
 }
 
 .pie-chart__legend-value {
-  font-size: 12px;
+  font-size: 10px;
   color: #6c757d;
   font-weight: 400;
+  display: inline;
 }
 
 /* Адаптивность */
