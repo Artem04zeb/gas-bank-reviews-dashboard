@@ -55,6 +55,157 @@ function App() {
     { label: 'Депозитные услуги', color: '#EF476F', value: 4, count: 176 }
   ]
 
+  // Функция для рендера содержимого дашборда
+  const renderDashboardContent = (pageTitle) => (
+    <>
+      <div className="main__header">
+        <h1 className="main__title">{pageTitle}</h1>
+      </div>
+
+      <div className="dashboard">
+        {/* Карточка статистики по отзывам */}
+        <div className="card card--large">
+          <div className="card__header">
+            <h3 className="card__title">Статистика по количеству отзывов</h3>
+          </div>
+          
+          <div className="card__filters">
+            <label className="filter-radio">
+              <input 
+                type="radio" 
+                name="reviews-filter"
+                value="total"
+                checked={selectedFilter === 'total'}
+                onChange={(e) => setSelectedFilter(e.target.value)}
+              />
+              <span className="filter-radio__label">Общее количество отзывов</span>
+            </label>
+            
+            <label className="filter-radio">
+              <input 
+                type="radio" 
+                name="reviews-filter"
+                value="processed"
+                checked={selectedFilter === 'processed'}
+                onChange={(e) => setSelectedFilter(e.target.value)}
+              />
+              <span className="filter-radio__label">Обработанные отзывы</span>
+            </label>
+          </div>
+
+          <div className="chart-container">
+            <ResponsiveContainer width="100%" height={350}>
+              <LineChart
+                data={getCurrentData()}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 20,
+                  bottom: 20,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                <XAxis 
+                  dataKey="month" 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#6c757d' }}
+                />
+                <YAxis 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#6c757d' }}
+                  domain={[0, roundedMax]}
+                />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #e9ecef',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+                  }}
+                  labelStyle={{ color: '#6c757d', fontSize: '12px' }}
+                  formatter={(value) => [`${value} ${selectedFilter === 'total' ? 'отзывов' : 'обработано'}`, 'Количество']}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="value" 
+                  stroke="#2b61ec" 
+                  strokeWidth={3}
+                  dot={{ fill: '#2b61ec', strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6, stroke: '#2b61ec', strokeWidth: 2 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Карточка статистики по тематике */}
+        <div className="card card--small">
+          <div className="card__header">
+            <h3 className="card__title">Статистика по тематике</h3>
+          </div>
+          
+          <div className="pie-chart">
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={topicsData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={0}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                  stroke="#fff"
+                  strokeWidth={2}
+                  paddingAngle={2}
+                  animationBegin={0}
+                  animationDuration={300}
+                >
+                  {topicsData.map((entry, index) => (
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={entry.color}
+                      style={{
+                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
+                        transition: 'all 0.3s ease'
+                      }}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  formatter={(value, name, props) => [`${value}%`, props.payload.label]}
+                  contentStyle={{
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #e9ecef',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+
+            <div className="pie-chart__legend">
+              {topicsData.map((topic, index) => (
+                <div key={index} className="pie-chart__legend-item">
+                  <div
+                    className="pie-chart__legend-dot"
+                    style={{ backgroundColor: topic.color }}
+                  ></div>
+                  <div className="pie-chart__legend-text">
+                    <span className="pie-chart__legend-label">{topic.label}</span>
+                    <span className="pie-chart__legend-value">{topic.value}%</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+
   return (
     <div className="app">
       {/* Левое меню */}
@@ -85,151 +236,26 @@ function App() {
 
       {/* Основной контент */}
       <main className="main">
-        <div className="main__header">
-          <h1 className="main__title">Дашборд</h1>
-        </div>
-
-        <div className="dashboard">
-          {/* Карточка статистики по отзывам */}
-          <div className="card card--large">
-            <div className="card__header">
-              <h3 className="card__title">Статистика по количеству отзывов</h3>
-            </div>
-            
-            <div className="card__filters">
-              <label className="filter-radio">
-                <input 
-                  type="radio" 
-                  name="reviews-filter"
-                  value="total"
-                  checked={selectedFilter === 'total'}
-                  onChange={(e) => setSelectedFilter(e.target.value)}
-                />
-                <span className="filter-radio__label">Общее количество отзывов</span>
-              </label>
-              
-              <label className="filter-radio">
-                <input 
-                  type="radio" 
-                  name="reviews-filter"
-                  value="processed"
-                  checked={selectedFilter === 'processed'}
-                  onChange={(e) => setSelectedFilter(e.target.value)}
-                />
-                <span className="filter-radio__label">Обработанные отзывы</span>
-              </label>
-            </div>
-
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={350}>
-                <LineChart
-                  data={getCurrentData()}
-                  margin={{
-                    top: 20,
-                    right: 30,
-                    left: 20,
-                    bottom: 20,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                  <XAxis 
-                    dataKey="month" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: '#6c757d' }}
-                  />
-                  <YAxis 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: '#6c757d' }}
-                    domain={[0, roundedMax]}
-                  />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: '#ffffff',
-                      border: '1px solid #e9ecef',
-                      borderRadius: '12px',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
-                    }}
-                    labelStyle={{ color: '#6c757d', fontSize: '12px' }}
-                    formatter={(value) => [`${value} ${selectedFilter === 'total' ? 'отзывов' : 'обработано'}`, 'Количество']}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="value" 
-                    stroke="#2b61ec" 
-                    strokeWidth={3}
-                    dot={{ fill: '#2b61ec', strokeWidth: 2, r: 4 }}
-                    activeDot={{ r: 6, stroke: '#2b61ec', strokeWidth: 2 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+        {activeMenuItem === 'Главная' && renderDashboardContent('Дашборд')}
+        {activeMenuItem === 'Кластеризация' && renderDashboardContent('Кластеризация')}
+        {activeMenuItem === 'Тестирование' && (
+          <div className="main__header">
+            <h1 className="main__title">Тестирование</h1>
+            <p>Страница в разработке...</p>
           </div>
-
-          {/* Карточка статистики по тематике */}
-          <div className="card card--small">
-            <div className="card__header">
-              <h3 className="card__title">Статистика по тематике</h3>
-            </div>
-            
-                <div className="pie-chart">
-                  <ResponsiveContainer width="100%" height={250}>
-                    <PieChart>
-                      <Pie
-                        data={topicsData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={0}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                        stroke="#fff"
-                        strokeWidth={2}
-                        paddingAngle={2}
-                        animationBegin={0}
-                        animationDuration={300}
-                      >
-                        {topicsData.map((entry, index) => (
-                          <Cell 
-                            key={`cell-${index}`} 
-                            fill={entry.color}
-                            style={{
-                              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
-                              transition: 'all 0.3s ease'
-                            }}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip 
-                        formatter={(value, name, props) => [`${value}%`, props.payload.label]}
-                        contentStyle={{
-                          backgroundColor: '#ffffff',
-                          border: '1px solid #e9ecef',
-                          borderRadius: '8px',
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
-                        }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-
-                  <div className="pie-chart__legend">
-                    {topicsData.map((topic, index) => (
-                      <div key={index} className="pie-chart__legend-item">
-                        <div
-                          className="pie-chart__legend-dot"
-                          style={{ backgroundColor: topic.color }}
-                        ></div>
-                        <div className="pie-chart__legend-text">
-                          <span className="pie-chart__legend-label">{topic.label}</span>
-                          <span className="pie-chart__legend-value">{topic.value}%</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+        )}
+        {activeMenuItem === 'Документация' && (
+          <div className="main__header">
+            <h1 className="main__title">Документация</h1>
+            <p>Страница в разработке...</p>
           </div>
-        </div>
+        )}
+        {activeMenuItem === 'Логи' && (
+          <div className="main__header">
+            <h1 className="main__title">Логи</h1>
+            <p>Страница в разработке...</p>
+          </div>
+        )}
       </main>
     </div>
   )
