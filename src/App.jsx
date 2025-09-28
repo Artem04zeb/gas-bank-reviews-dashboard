@@ -6,7 +6,11 @@ function App() {
   const [activeMenuItem, setActiveMenuItem] = useState('Главная')
   const [selectedFilter, setSelectedFilter] = useState('total')
   const [selectedClass, setSelectedClass] = useState('Все')
-  const [selectedTimeRange, setSelectedTimeRange] = useState('last-3-months')
+  const [selectedTimeRange, setSelectedTimeRange] = useState('all-time')
+  const [customDateRange, setCustomDateRange] = useState({
+    startDate: '',
+    endDate: ''
+  })
 
   const menuItems = [
     'Главная',
@@ -71,11 +75,12 @@ function App() {
 
   // Данные для выбора временного диапазона
   const timeRangeOptions = [
-    { id: 'last-month', label: 'Последний месяц' },
-    { id: 'last-3-months', label: 'Последние 3 месяца' },
-    { id: 'last-6-months', label: 'Последние 6 месяцев' },
-    { id: 'last-year', label: 'Последний год' },
-    { id: 'all-time', label: 'Всё время' }
+    { id: 'all-time', label: 'Всё время' },
+    { id: 'last-month', label: 'Месяц' },
+    { id: 'last-2-months', label: '2 месяца' },
+    { id: 'last-3-months', label: '3 месяца' },
+    { id: 'last-6-months', label: 'Полгода' },
+    { id: 'custom', label: 'Указать даты' }
   ]
 
   // Функция для рендера содержимого дашборда
@@ -281,6 +286,38 @@ function App() {
             ))}
           </div>
         </div>
+        
+        {/* Кастомный выбор дат */}
+        {selectedTimeRange === 'custom' && (
+          <div className="custom-date-range">
+            <div className="custom-date-range__container">
+              <div className="custom-date-range__field">
+                <label className="custom-date-range__label">От:</label>
+                <input
+                  type="date"
+                  className="custom-date-range__input"
+                  value={customDateRange.startDate}
+                  onChange={(e) => setCustomDateRange(prev => ({
+                    ...prev,
+                    startDate: e.target.value
+                  }))}
+                />
+              </div>
+              <div className="custom-date-range__field">
+                <label className="custom-date-range__label">До:</label>
+                <input
+                  type="date"
+                  className="custom-date-range__input"
+                  value={customDateRange.endDate}
+                  onChange={(e) => setCustomDateRange(prev => ({
+                    ...prev,
+                    endDate: e.target.value
+                  }))}
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Дашборд с графиками */}
