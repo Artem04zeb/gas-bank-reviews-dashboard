@@ -696,14 +696,14 @@ function App() {
           </div>
 
           <div className="chart-container">
-            <ResponsiveContainer width="100%" height={280}>
+            <ResponsiveContainer width="100%" height={220}>
               <LineChart
                 data={getCurrentData()}
                 margin={{
-                  top: 15,
-                  right: 20,
-                  left: 15,
-                  bottom: 15,
+                  top: 10,
+                  right: 15,
+                  left: 10,
+                  bottom: 10,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -753,14 +753,14 @@ function App() {
           </div>
           
           <div className="pie-chart">
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={160}>
               <PieChart>
                 <Pie
                   data={topicsData}
                   cx="50%"
                   cy="50%"
                   innerRadius={0}
-                  outerRadius={65}
+                  outerRadius={50}
                   fill="#8884d8"
                   dataKey="value"
                   stroke="#fff"
@@ -805,6 +805,192 @@ function App() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+
+  // Функция для рендера страницы документации
+  const renderDocumentationPage = () => (
+    <>
+      <div className="main__header">
+        <h1 className="main__title">Документация</h1>
+      </div>
+
+      <div className="documentation">
+        {/* Быстрый старт */}
+        <div className="documentation__section">
+          <div className="documentation__card">
+            <div className="documentation__card-header">
+              <div className="documentation__icon">🚀</div>
+              <h2 className="documentation__card-title">Быстрый старт</h2>
+            </div>
+            <div className="documentation__card-content">
+              <p>Добро пожаловать в систему анализа отзывов Газпромбанка! Наш сервис поможет вам получить ценные инсайты из клиентских отзывов.</p>
+              <div className="documentation__steps">
+                <div className="documentation__step">
+                  <span className="documentation__step-number">1</span>
+                  <span>Выберите нужную страницу в левом меню</span>
+                </div>
+                <div className="documentation__step">
+                  <span className="documentation__step-number">2</span>
+                  <span>Настройте фильтры и временной диапазон</span>
+                </div>
+                <div className="documentation__step">
+                  <span className="documentation__step-number">3</span>
+                  <span>Анализируйте данные с помощью интерактивных графиков</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Сценарии использования */}
+        <div className="documentation__section">
+          <h2 className="documentation__section-title">Сценарии использования</h2>
+          
+          <div className="documentation__scenarios">
+            <div className="documentation__scenario">
+              <div className="documentation__scenario-header">
+                <div className="documentation__scenario-icon">📊</div>
+                <h3>Анализ общей статистики</h3>
+              </div>
+              <p><strong>Задача:</strong> Получить общее представление о количестве и распределении отзывов</p>
+              <div className="documentation__scenario-steps">
+                <p><strong>Шаги:</strong></p>
+                <ul>
+                  <li>Перейдите на страницу "Главная" или "Кластеризация"</li>
+                  <li>Выберите карточку "Все" для общей статистики</li>
+                  <li>Настройте временной диапазон (месяц, полгода, год или указать даты)</li>
+                  <li>Изучите линейный график для понимания динамики</li>
+                  <li>Проанализируйте круговую диаграмму распределения по тематикам</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="documentation__scenario">
+              <div className="documentation__scenario-header">
+                <div className="documentation__scenario-icon">🔍</div>
+                <h3>Анализ конкретной категории</h3>
+              </div>
+              <p><strong>Задача:</strong> Детальное изучение отзывов по определенной категории услуг</p>
+              <div className="documentation__scenario-steps">
+                <p><strong>Шаги:</strong></p>
+                <ul>
+                  <li>Выберите интересующую категорию (Обслуживание, Кредитные карты, Депозиты и т.д.)</li>
+                  <li>Графики автоматически обновятся с учетом выбранной категории</li>
+                  <li>Сравните общее количество отзывов с обработанными</li>
+                  <li>Обратите внимание на изменение цветов графиков под выбранную категорию</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="documentation__scenario">
+              <div className="documentation__scenario-header">
+                <div className="documentation__scenario-icon">🧪</div>
+                <h3>Тестирование модели</h3>
+              </div>
+              <p><strong>Задача:</strong> Загрузить данные для тестирования и получить метрики качества</p>
+              <div className="documentation__scenario-steps">
+                <p><strong>Шаги:</strong></p>
+                <ul>
+                  <li>Перейдите на страницу "Тестирование"</li>
+                  <li>Загрузите JSON файл с тестовыми данными</li>
+                  <li>Изучите ключевые метрики: Accuracy и F1-Micro</li>
+                  <li>Проанализируйте результаты тестирования по категориям</li>
+                  <li>Скачайте результаты в формате JSON для дальнейшего анализа</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Описание функций */}
+        <div className="documentation__section">
+          <h2 className="documentation__section-title">Описание функций</h2>
+          
+          <div className="documentation__features">
+            <div className="documentation__feature">
+              <h3>📈 Интерактивные графики</h3>
+              <ul>
+                <li><strong>Линейный график:</strong> Показывает динамику отзывов по месяцам</li>
+                <li><strong>Круговая диаграмма:</strong> Распределение отзывов по тематикам</li>
+                <li><strong>Hover эффекты:</strong> Наведите курсор для получения детальной информации</li>
+              </ul>
+            </div>
+
+            <div className="documentation__feature">
+              <h3>🎛️ Фильтрация данных</h3>
+              <ul>
+                <li><strong>Категории:</strong> Фильтрация по типам банковских услуг</li>
+                <li><strong>Временные диапазоны:</strong> От месяца до года, или произвольный период</li>
+                <li><strong>Типы отзывов:</strong> Общее количество или только обработанные</li>
+              </ul>
+            </div>
+
+            <div className="documentation__feature">
+              <h3>📱 Адаптивный дизайн</h3>
+              <ul>
+                <li><strong>Мобильное меню:</strong> Бургер-меню для удобной навигации на телефонах</li>
+                <li><strong>Responsive графики:</strong> Автоматическая адаптация под размер экрана</li>
+                <li><strong>Touch-friendly:</strong> Оптимизированы для сенсорных экранов</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Технические детали */}
+        <div className="documentation__section">
+          <div className="documentation__card">
+            <div className="documentation__card-header">
+              <div className="documentation__icon">⚙️</div>
+              <h2 className="documentation__card-title">Технические детали</h2>
+            </div>
+            <div className="documentation__card-content">
+              <div className="documentation__tech-grid">
+                <div className="documentation__tech-item">
+                  <h4>Форматы данных</h4>
+                  <p>Система работает с JSON файлами. Поддерживается загрузка и выгрузка данных в стандартном формате.</p>
+                </div>
+                <div className="documentation__tech-item">
+                  <h4>Метрики качества</h4>
+                  <p>Accuracy - точность классификации, F1-Micro - микроусредненная F1-мера для многоклассовой задачи.</p>
+                </div>
+                <div className="documentation__tech-item">
+                  <h4>Обновление данных</h4>
+                  <p>Графики обновляются в реальном времени при изменении фильтров и загрузке новых данных.</p>
+                </div>
+                <div className="documentation__tech-item">
+                  <h4>Производительность</h4>
+                  <p>Оптимизированная визуализация с поддержкой больших объемов данных и плавными анимациями.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Контакты и поддержка */}
+        <div className="documentation__section">
+          <div className="documentation__card documentation__card--support">
+            <div className="documentation__card-header">
+              <div className="documentation__icon">💬</div>
+              <h2 className="documentation__card-title">Поддержка</h2>
+            </div>
+            <div className="documentation__card-content">
+              <p>Если у вас возникли вопросы или нужна помощь, обратитесь к команде разработки:</p>
+              <div className="documentation__contact-info">
+                <div className="documentation__contact-item">
+                  <strong>Email:</strong> analytics@gazprombank.ru
+                </div>
+                <div className="documentation__contact-item">
+                  <strong>Техподдержка:</strong> +7 (495) 123-45-67
+                </div>
+                <div className="documentation__contact-item">
+                  <strong>Версия системы:</strong> 1.0.0
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -874,12 +1060,7 @@ function App() {
         {activeMenuItem === 'Главная' && renderDashboardContent('Дашборд')}
         {activeMenuItem === 'Кластеризация' && renderClusteringPage()}
         {activeMenuItem === 'Тестирование' && renderTestingPage()}
-        {activeMenuItem === 'Документация' && (
-          <div className="main__header">
-            <h1 className="main__title">Документация</h1>
-            <p>Страница в разработке...</p>
-          </div>
-        )}
+        {activeMenuItem === 'Документация' && renderDocumentationPage()}
         {activeMenuItem === 'Логи' && (
           <div className="main__header">
             <h1 className="main__title">Логи</h1>
