@@ -3,7 +3,7 @@ import './App.css'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 
 function App() {
-  const [activeMenuItem, setActiveMenuItem] = useState('Главная')
+  const [activeMenuItem, setActiveMenuItem] = useState('Кластеризация')
   const [selectedFilter, setSelectedFilter] = useState('total')
   const [selectedClass, setSelectedClass] = useState('Все')
   const [selectedTimeRange, setSelectedTimeRange] = useState('all-time')
@@ -61,7 +61,6 @@ function App() {
   }
 
   const menuItems = [
-    'Главная',
     'Кластеризация', 
     'Тестирование',
     'Документация',
@@ -861,7 +860,7 @@ function App() {
               <div className="documentation__scenario-steps">
                 <p><strong>Шаги:</strong></p>
                 <ul>
-                  <li>Перейдите на страницу "Главная" или "Кластеризация"</li>
+                  <li>Перейдите на страницу "Кластеризация"</li>
                   <li>Выберите карточку "Все" для общей статистики</li>
                   <li>Настройте временной диапазон (месяц, полгода, год или указать даты)</li>
                   <li>Изучите линейный график для понимания динамики</li>
@@ -1057,7 +1056,6 @@ function App() {
 
       {/* Основной контент */}
       <main className="main">
-        {activeMenuItem === 'Главная' && renderDashboardContent('Дашборд')}
         {activeMenuItem === 'Кластеризация' && renderClusteringPage()}
         {activeMenuItem === 'Тестирование' && renderTestingPage()}
         {activeMenuItem === 'Документация' && renderDocumentationPage()}
