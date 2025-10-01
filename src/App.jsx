@@ -70,18 +70,18 @@ function App() {
 
   // Mock данные для графика отзывов - реальные данные по отзывам Газпромбанка
   const reviewsData = [
-    { month: 'янв', value: 247, total: 247, processed: 198 },
-    { month: 'фев', value: 312, total: 312, processed: 281 },
-    { month: 'мар', value: 289, total: 289, processed: 267 },
-    { month: 'апр', value: 356, total: 356, processed: 334 },
-    { month: 'май', value: 298, total: 298, processed: 276 },
-    { month: 'июн', value: 423, total: 423, processed: 401 },
-    { month: 'июл', value: 387, total: 387, processed: 365 },
-    { month: 'авг', value: 445, total: 445, processed: 423 },
-    { month: 'сен', value: 398, total: 398, processed: 378 },
-    { month: 'окт', value: 467, total: 467, processed: 445 },
-    { month: 'ноя', value: 512, total: 512, processed: 489 },
-    { month: 'дек', value: 478, total: 478, processed: 456 }
+    { month: 'янв', value: 247, total: 20, processed: 198 },
+    { month: 'фев', value: 312, total: 25, processed: 281 },
+    { month: 'мар', value: 289, total: 31, processed: 267 },
+    { month: 'апр', value: 356, total: 30, processed: 334 },
+    { month: 'май', value: 298, total: 24, processed: 276 },
+    { month: 'июн', value: 423, total: 19, processed: 401 },
+    { month: 'июл', value: 387, total: 11, processed: 365 },
+    { month: 'авг', value: 445, total: 17, processed: 423 },
+    { month: 'сен', value: 398, total: 28, processed: 378 },
+    { month: 'окт', value: 467, total: 25, processed: 445 },
+    { month: 'ноя', value: 512, total: 23, processed: 489 },
+    { month: 'дек', value: 478, total: 23, processed: 456 }
   ]
 
   // Функция для получения данных в зависимости от выбранного фильтра
